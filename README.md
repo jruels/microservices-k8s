@@ -2,7 +2,7 @@
 
 ## Day 1
 
-01  Foundation: [here](https://github.com/GeorgeNiece/DevOpsForMicroservicesWithKubernetes-3day/blob/master/labs/LAB01-Foundation.pdf).
+01  Foundation: [here](labs/LAB01-Foundation.pdf)
 
 02  Working With Kind: [here](https://github.com/GeorgeNiece/DevOpsForMicroservicesWithKubernetes-3day/blob/master/labs/LAB02-WorkingWithKind.pdf)
 
