@@ -1,7 +1,5 @@
 # DevOps for Microservices with Kubernetes
 
-Our Presentation for the Session [Content Slides](https://github.com/GeorgeNiece/DevOpsForMicroservicesWithKubernetes-3day/blob/master/content/DevOpsForMicroservicesWithKubernetes-V11.pdf)
-
 ## Day 1
 
 01  Foundation: [here](https://github.com/GeorgeNiece/DevOpsForMicroservicesWithKubernetes-3day/blob/master/labs/LAB01-Foundation.pdf).
