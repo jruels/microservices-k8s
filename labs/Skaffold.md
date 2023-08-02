@@ -29,7 +29,7 @@ cd ~/k3d/skaffold
 ## Create the cluster
 
 ```bash
-k3d cluster create skaffold --api-port 6550 --agents
+k3d cluster create skaffold --api-port 6550 --agents 2
 ```
 
 
