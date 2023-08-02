@@ -42,17 +42,26 @@ Tilt Avatars consists of a Python web API backend to generate avatars and a Java
 
 Tilt brings consistency to your development not only due to ensuring a reproducible dev-environment-as-code, but launching any Tilt project is the same with the `tilt up` command, so you always have a familiar starting point. `tilt up` starts the Tilt control loop, which we’ll explore in more detail in a moment.
 
+For this tutorial, we’re going to use a special `tilt demo` command, which will perform a few steps:
 
+1. Create a temporary, local Kubernetes development cluster in Docker
+2. Clone the [Tilt Avatars](https://github.com/tilt-dev/tilt-avatars) sample project
+3. Launch a `tilt up` session for the sample project using the temporary Kubernetes cluster
+4. Clean everything up on exit 🧹
 
-Run the following commands in your terminal to get started:
+Run the following command in your terminal to get started:
 
 ```
-git clone https://github.com/tilt-dev/tilt-avatars.git
-cd tilt-avatars/
-tilt up
+tilt demo
 ```
 
-First, open the sample project directory in your preferred editor so that you can make changes in the following steps.
+
+
+You should see output similar to the following in your terminal:
+
+![Running tilt up in a Terminal window shows "Tilt started on http://localhost:3366/" message](https://docs.tilt.dev/assets/docimg/tutorial/tilt-up-cli.gif)
+
+First, open the sample project directory (path is in the `tilt demo` output) in your preferred editor so that you can make changes in the following steps.
 
 Once the sample project is open, return focus to the terminal window and press `(Spacebar)`, and the Tilt UI will be opened in your default browser.
 
