@@ -38,6 +38,17 @@ k3d cluster create skaffold --api-port 6550 --agents 2
 
 For this tutorial, a Spring-Boot application will be used. It provides one endpoint that returns a simple greeting message in `JSON` format.
 
+
+
+Clone the repository: 
+
+```bash
+git clone https://github.com/jruels/skaffold-demo.git
+cd skaffold-demo
+```
+
+
+
 In order to run the application, we first need to create a `Dockerfile` file to containerize our application. Here is an example:
 
 ```
@@ -145,3 +156,12 @@ $ skaffold delete
 
 
 🌖 In summary, `skaffold` is a very flexible solution that does not require `helm` and is very extensive on what kind of integrations it can be used with.
+
+## Clean up 
+
+Delete the k3d cluster
+
+```bash
+k3d cluster delete skaffold
+```
+
