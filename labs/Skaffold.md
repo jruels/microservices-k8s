@@ -75,7 +75,7 @@ metadata:
 spec:
   containers:
   - name: skaffold-demo
-    image: somerepo/skaffold-demo
+    image: <somerepo>/skaffold-demo
 ```
 
 
@@ -97,7 +97,7 @@ metadata:
   name: skaffold
 build:
   artifacts:
-    - image: somerepo/skaffold-demo
+    - image: <somerepo>/skaffold-demo
       docker:
         dockerfile: Dockerfile
 manifests:
