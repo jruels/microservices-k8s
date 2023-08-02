@@ -34,6 +34,6 @@ Chaos Experiments: [here](https://learning.oreilly.com/interactive/?classificati
 
 13 Tilt and k3d: [here](labs/Tilt.md).
 
-13 Remote development and debugging with Telepresence: [here](labs/Telepresence.md).
+14 Remote development and debugging with Telepresence: [here](labs/Telepresence.md).
 
 (Optional) Skaffold Microservices Experiment: [here](https://github.com/GoogleContainerTools/skaffold/tree/main/examples/microservices).
