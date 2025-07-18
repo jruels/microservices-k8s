@@ -1,39 +1,72 @@
 # DevOps for Microservices with Kubernetes
+*2-Day Intensive Course*
 
-## Day 1
+## Environment Setup
+This course uses a dual-VM setup:
+- **Windows VM**: VS Code with Remote Development extension, AWS CLI
+- **Ubuntu VM**: Docker, k3d, kubectl, and development tools
+- **Connection**: VS Code Remote Development extension connects Windows VM to Ubuntu VM
 
-01  Foundation: [here](labs/Lab01-Foundation-local.pdf)
+Students will edit files via VS Code on Windows while executing commands on the Ubuntu VM.
 
-02  Working With Kind: [here](labs/LAB02-WorkingWithKind.pdf)
+## Day 1 - Local k3d Development & Core Tools
 
-03 Air Gapped Kind: [here](labs/LAB03-AirGappedKIND.pdf).
+01. **K3d Getting Started** - [LAB01-K3D-GettingStarted.md](labs/LAB01-K3D-GettingStarted.md)
 
-Chaos Experiments: [here](https://learning.oreilly.com/interactive/?classification=content-scenario&query=chaos).
+02. **K3d and Persistent Volumes** - [LAB02-K3D-PVC.md](labs/LAB02-K3D-PVC.md)
 
-04 K3d Getting Started: [here](labs/LAB04-K3D-GettingStarted.pdf).
+03. **K3d, Helm and Rancher** - [LAB03-K3D-Rancher.md](labs/LAB03-K3D-Rancher.md)
 
-## Day 2
+04. **Building a Helm Chart** - [LAB04-Helm-Chart-Build.md](labs/LAB04-Helm-Chart-Build.md)
 
-05  K3d and Persistent Volume: [here](labs/LAB05-K3D-PVC.pdf).
+05. **Working with Operator SDK** - [LAB05-OperatorSDK-Helm.md](labs/LAB05-OperatorSDK-Helm.md)
 
-06  K3d, Helm and Rancher: [here](labs/LAB06-K3D-Rancher.pdf).
+## Day 2 - Advanced Development & Cloud Integration
 
-07  KPT Getting Started: [here](labs/LAB07-KPT-Getting-Started.pdf).
+06. **Skaffold and k3d** - [LAB06-Skaffold.md](labs/LAB06-Skaffold.md)
 
-08  KPT and Helm: [here](labs/LAB08-KPT-Helm.pdf).
+07. **Prometheus Monitoring** - [LAB07-Prometheus.md](labs/LAB07-Prometheus.md)
 
-09 Building a Helm Chart: [here](labs/LAB09-Helm-Chart-Build.pdf).
+08. **Tilt and k3d** - [LAB08-Tilt.md](labs/LAB08-Tilt.md)
 
-10 Working with Operator SDK: [here](labs/LAB10-OperatorSDK-Helm.pdf).
+09. **Remote Development with Telepresence on EKS** - [LAB09-Telepresence.md](labs/LAB09-Telepresence.md)
 
-## Day 3   
+10. **Skaffold Microservices** - [LAB10-Skaffold-Microservices.md](labs/LAB10-Skaffold-Microservices.md)
 
-11 Prometheus Setup in k3d: [here](labs/LAB13-Prometheus.pdf).
+---
 
-12 Skaffold and k3d: [here](labs/Skaffold.md).
+## Prerequisites
 
-13 Tilt and k3d: [here](labs/Tilt.md).
+### Windows VM Requirements
+- VS Code installed
+- Remote Development extension pack installed
+- AWS CLI installed
+- Network connectivity to Ubuntu VM
 
-14 Remote development and debugging with Telepresence: [here](labs/Telepresence.md).
+### Ubuntu VM Requirements
+- Docker installed and running
+- kubectl installed
+- k3d installed
+- Helm installed
+- Go programming language (installed during labs)
+- Basic understanding of Kubernetes concepts
+- Terminal/command line familiarity
 
-(Optional) Skaffold Microservices Experiment: [here](https://github.com/GoogleContainerTools/skaffold/tree/main/examples/microservices).
+### Development Tools (Installed During Labs)
+- Skaffold
+- Tilt
+- Telepresence
+- Operator SDK
+- Prometheus
+
+## Course Objectives
+By the end of this course, students will be able to:
+- Set up and manage local Kubernetes clusters using k3d
+- Deploy and manage applications using Helm charts
+- Create custom operators using Operator SDK
+- Implement monitoring with Prometheus
+- Use modern development tools like Skaffold and Tilt for fast iteration
+- Debug applications remotely with Telepresence
+- Work with persistent volumes in k3d
+- Manage cluster resources using Rancher
+- Deploy microservices applications effectively
