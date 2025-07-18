@@ -10,7 +10,7 @@ In this lab, you will learn how to use the Operator SDK to create a Kubernetes o
 - Go programming language installed (we'll install this)
 
 ## Environment Setup
-Ensure you're connected to your Ubuntu VM through VS Code Remote Development. All commands will be executed on the Ubuntu VM.
+Ensure you're connected to your Ubuntu VM through VS Code Remote Explorer extension (see Lab 01 for SSH setup). All commands will be executed in the VS Code integrated terminal connected to your Ubuntu VM. Use VS Code's file explorer to navigate and manage directories and files.
 
 ## Install Prerequisites
 
@@ -62,8 +62,14 @@ k3d cluster create operator-demo --api-port 6554 --servers 1 --agents 2 --port "
 
 ## Create Operator Project
 
-Create a new directory for the operator project:
+Create a new directory for the operator project using VS Code file explorer or terminal:
 
+**Option 1: Using VS Code File Explorer**
+- In VS Code's file explorer, navigate to `/home/ubuntu/k3d` (create `k3d` folder if it doesn't exist)
+- Right-click and create a new folder called `operators`
+- Navigate to this directory in the terminal
+
+**Option 2: Using Terminal**
 ```bash
 mkdir -p ~/k3d/operators
 cd ~/k3d/operators
@@ -105,7 +111,9 @@ cd helm-charts/nginx
 ls -la
 ```
 
-Edit the values.yaml to customize the Nginx deployment:
+Edit the values.yaml to customize the Nginx deployment. You can either:
+- **Use VS Code**: Open `values.yaml` in VS Code editor and replace the contents with the configuration below
+- **Use terminal**: Run the command below to replace the file contents
 
 ```bash
 cat > values.yaml << 'EOF'

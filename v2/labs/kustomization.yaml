@@ -1,0 +1,7 @@
+secretGenerator:
+- name: mysql-pass
+  literals:
+  - password=VerySecure2020
+resources:
+  - mysql-deployment.yaml
+  - wordpress-deployment.yaml

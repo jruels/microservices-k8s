@@ -9,7 +9,7 @@ In this lab, you will learn how to use Tilt for fast, multi-service development 
 - Completed Lab 06: Skaffold and k3d
 
 ## Environment Setup
-Ensure you're connected to your Ubuntu VM through VS Code Remote Development. All commands will be executed on the Ubuntu VM.
+Ensure you're connected to your Ubuntu VM through VS Code Remote Explorer extension (see Lab 01 for SSH setup). All commands will be executed in the VS Code integrated terminal connected to your Ubuntu VM. Use VS Code's file explorer to navigate and manage directories and files.
 
 ## Install Tilt
 
@@ -35,6 +35,14 @@ k3d cluster create tilt --api-port 6557 --agents 2 --wait
 
 ## Create Working Directory
 
+Create the working directory using VS Code file explorer or terminal:
+
+**Option 1: Using VS Code File Explorer**
+- In VS Code's file explorer, navigate to `/home/ubuntu/k3d` (create `k3d` folder if it doesn't exist)
+- Right-click and create a new folder called `tilt`
+- Navigate to this directory in the terminal
+
+**Option 2: Using Terminal**
 ```bash
 mkdir -p ~/k3d/tilt
 cd ~/k3d/tilt
@@ -58,8 +66,12 @@ tilt down
 
 ## Create Multi-Service Application
 
-Create a multi-service application structure:
+Create a multi-service application structure using VS Code file explorer or terminal:
 
+**Option 1: Using VS Code File Explorer**
+- In your current `tilt` directory, right-click and create folders named `frontend` and `backend`
+
+**Option 2: Using Terminal**
 ```bash
 mkdir -p frontend backend
 ```

@@ -1,6 +1,6 @@
 # Lab 09: Remote Development with Telepresence on EKS
 
-In this lab, you will learn how to use Telepresence for remote development and debugging of microservices running on Amazon EKS (Elastic Kubernetes Service).
+In this lab, you will learn how to use Telepresence for remote development and debugging of microservices. While most development is done locally using k3d clusters, this lab demonstrates Telepresence's power when working with remote cloud clusters like Amazon EKS for advanced debugging scenarios where local development isn't sufficient.
 
 ## Prerequisites
 - Windows VM with VS Code and Remote Development extension
@@ -10,7 +10,9 @@ In this lab, you will learn how to use Telepresence for remote development and d
 - Completed Lab 08: Tilt and k3d
 
 ## Environment Setup
-Ensure you're connected to your Ubuntu VM through VS Code Remote Development. All commands will be executed on the Ubuntu VM.
+Ensure you're connected to your Ubuntu VM through VS Code Remote Explorer extension (see Lab 01 for SSH setup). All commands will be executed in the VS Code integrated terminal connected to your Ubuntu VM. Use VS Code's file explorer to navigate and manage directories and files.
+
+**Note**: This lab uses EKS (a remote cloud cluster) instead of k3d because Telepresence is most valuable when debugging applications that need to interact with actual cloud services, databases, and production-like environments that can't be easily replicated locally.
 
 ## Install Prerequisites
 
@@ -84,6 +86,15 @@ kubectl cluster-info
 
 ## Create Working Directory
 
+Create the working directory using VS Code file explorer or terminal:
+
+**Option 1: Using VS Code File Explorer**
+- In VS Code's file explorer, navigate to `/home/ubuntu`
+- Right-click and create a new folder called `eks`
+- Inside `eks`, create a new folder called `telepresence`
+- Navigate to this directory in the terminal
+
+**Option 2: Using Terminal**
 ```bash
 mkdir -p ~/eks/telepresence
 cd ~/eks/telepresence
@@ -91,7 +102,9 @@ cd ~/eks/telepresence
 
 ## Deploy Sample Microservices Application
 
-Create a sample microservices application to work with:
+Create a sample microservices application to work with. You can either:
+- **Use VS Code**: Create a new file called `microservices-app.yaml` in VS Code editor and add the contents below
+- **Use terminal**: Run the command below to create the file
 
 ```bash
 cat > microservices-app.yaml << 'EOF'
@@ -295,6 +308,11 @@ curl http://backend:8080
 
 Create a local version of the backend service for development:
 
+**Option 1: Using VS Code File Explorer**
+- In your current directory, right-click and create a new folder called `local-backend`
+- Navigate to this directory in the terminal
+
+**Option 2: Using Terminal**
 ```bash
 mkdir -p local-backend
 cd local-backend

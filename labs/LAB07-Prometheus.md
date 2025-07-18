@@ -9,7 +9,7 @@ In this lab, you will learn how to deploy Prometheus for monitoring Kubernetes c
 - Completed Lab 06: Skaffold and k3d
 
 ## Environment Setup
-Ensure you're connected to your Ubuntu VM through VS Code Remote Development. All commands will be executed on the Ubuntu VM.
+Ensure you're connected to your Ubuntu VM through VS Code Remote Explorer extension (see Lab 01 for SSH setup). All commands will be executed in the VS Code integrated terminal connected to your Ubuntu VM. Use VS Code's file explorer to navigate and manage directories and files.
 
 ## Create k3d Cluster
 
@@ -151,7 +151,9 @@ Navigate to Dashboards → Browse to see all available dashboards.
 
 ## Deploy Sample Application
 
-Let's deploy a sample application to monitor:
+Let's deploy a sample application to monitor. You can either:
+- **Use VS Code**: Create a new file called `sample-app.yaml` in VS Code editor and add the contents below
+- **Use terminal**: Run the command below to create the file
 
 ```bash
 cat > sample-app.yaml << 'EOF'
@@ -188,11 +190,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: sample-app
+  labels:
+    app: sample-app
 spec:
   selector:
     app: sample-app
   ports:
-  - protocol: TCP
+  - name: web
+    protocol: TCP
     port: 80
     targetPort: 80
   type: NodePort

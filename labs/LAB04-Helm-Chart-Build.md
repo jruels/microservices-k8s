@@ -9,7 +9,7 @@ In this lab, you will learn how to create and deploy a custom Helm chart for an 
 - Completed Lab 03: K3d, Helm and Rancher
 
 ## Environment Setup
-Ensure you're connected to your Ubuntu VM through VS Code Remote Development. All commands will be executed on the Ubuntu VM.
+Ensure you're connected to your Ubuntu VM through VS Code Remote Explorer extension (see Lab 01 for SSH setup). All commands will be executed in the VS Code integrated terminal connected to your Ubuntu VM. Use VS Code's file explorer to navigate and manage directories and files.
 
 ## Create k3d Cluster
 
@@ -28,11 +28,22 @@ kubectl cluster-info
 
 ## Create a Helm Chart
 
-Create a new Helm chart called `nginx-chart`:
+Create a new Helm chart called `nginx-chart`. First, create the directory structure:
 
+**Option 1: Using VS Code File Explorer**
+- In VS Code's file explorer, navigate to `/home/ubuntu`
+- Right-click and create a new folder called `k3d`
+- Inside `k3d`, create a new folder called `helm-charts`
+- Navigate to this directory in the terminal
+
+**Option 2: Using Terminal**
 ```bash
 mkdir -p ~/k3d/helm-charts
 cd ~/k3d/helm-charts
+```
+
+Then create the Helm chart:
+```bash
 helm create nginx-chart
 ```
 
@@ -50,22 +61,24 @@ You should see:
 
 ## Examine Chart Structure
 
+You can explore the chart structure using VS Code's file explorer by navigating to the `nginx-chart` folder, or use the terminal commands below:
+
 ### Chart.yaml
-Look at the chart metadata:
+Look at the chart metadata using VS Code (double-click the file in explorer) or terminal:
 
 ```bash
 cat nginx-chart/Chart.yaml
 ```
 
 ### Values.yaml
-Examine the default values:
+Examine the default values using VS Code (double-click the file in explorer) or terminal:
 
 ```bash
 cat nginx-chart/values.yaml
 ```
 
 ### Templates Directory
-View the template files:
+View the template files in VS Code file explorer or using terminal:
 
 ```bash
 ls -la nginx-chart/templates/
@@ -73,7 +86,9 @@ ls -la nginx-chart/templates/
 
 ## Customize the Chart
 
-Edit the values.yaml file to customize the deployment:
+Edit the values.yaml file to customize the deployment. You can either:
+- **Use VS Code**: Open `nginx-chart/values.yaml` in VS Code editor and replace the contents with the configuration below
+- **Use terminal**: Run the command below to replace the file contents
 
 ```bash
 cat > nginx-chart/values.yaml << 'EOF'
@@ -86,8 +101,8 @@ image:
   tag: "latest"
 
 imagePullSecrets: []
-nameOverride: "nginx-awesome-app"
-fullnameOverride: "nginx-chart"
+nameOverride: ""
+fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -153,8 +168,10 @@ helm lint nginx-chart/
 Deploy the chart to your cluster:
 
 ```bash
-helm install my-nginx-app nginx-chart/ --values nginx-chart/values.yaml
+helm install my-nginx-app nginx-chart/
 ```
+
+**Note**: The `values.yaml` file is automatically used by default, so specifying `--values nginx-chart/values.yaml` is redundant.
 
 You should see output similar to:
 ```
@@ -215,7 +232,7 @@ Make a change to the values and upgrade:
 sed -i 's/replicaCount: 2/replicaCount: 3/' nginx-chart/values.yaml
 
 # Upgrade the release
-helm upgrade my-nginx-app nginx-chart/ --values nginx-chart/values.yaml
+helm upgrade my-nginx-app nginx-chart/
 ```
 
 Verify the upgrade:
@@ -249,7 +266,24 @@ This creates a `.tgz` file that can be shared or stored in a chart repository.
 Debug and view the rendered templates:
 
 ```bash
-helm template my-nginx-app nginx-chart/ --values nginx-chart/values.yaml
+helm template my-nginx-app nginx-chart/
+```
+
+This shows you the exact Kubernetes manifests that Helm would generate without actually deploying them.
+
+## Rollback Example
+
+If you need to rollback to a previous version:
+
+```bash
+# View release history
+helm history my-nginx-app
+
+# Rollback to previous version (revision 1)
+helm rollback my-nginx-app 1
+
+# Verify the rollback
+kubectl get pods
 ```
 
 ## Clean Up

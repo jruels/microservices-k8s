@@ -9,11 +9,41 @@ In this lab, you will learn how to install and use k3d to create local Kubernete
 - kubectl installed on Ubuntu VM
 
 ## Environment Setup
-You should be connected to your Ubuntu VM through VS Code Remote Development. All commands in this lab will be executed on the Ubuntu VM through the VS Code terminal.
+
+### Set up SSH connection in Visual Studio Code
+
+1. **Open Visual Studio Code on your Windows VM**
+
+2. **Create the SSH configuration file:**
+   - On the left sidebar, click the Remote Explorer icon (computer with connection icon)
+   - In the Remote Explorer, hover over **SSH**, click the gear icon (⚙️), and select the SSH config file (usually `C:\Users\<username>\.ssh\config`)
+
+3. **Add SSH configuration for your Ubuntu VM:**
+   Add the following to your SSH config file, replacing the placeholders with your actual values:
+   ```plaintext
+   Host ubuntu-vm
+     HostName <IP address of your Ubuntu VM>
+     IdentityFile <Path to your SSH private key file>
+     User ubuntu
+   ```
+   **PROTIP**: If you have the SSH key file in VS Code Explorer, right-click it and select "Copy Path" to get the correct path for `IdentityFile`
+
+4. **Save the SSH configuration file**
+
+5. **Connect to your Ubuntu VM:**
+   - In the Remote Explorer, you should now see "ubuntu-vm" under "SSH Targets"
+   - Click on the entry to connect to your Ubuntu VM
+   - VS Code will open a new window connected to your Ubuntu VM
+   - Click **Open Folder** and select `/home/ubuntu` as your working directory
+
+6. **Open integrated terminal:**
+   - In the connected VS Code window, open Terminal → New Terminal
+   - All commands in this lab will be executed in this VS Code integrated terminal
+   - Use VS Code's file explorer to navigate and manage files/directories on the Ubuntu VM
 
 ## Install k3d
 
-Since you're working on an Ubuntu VM, use the Linux installation method:
+Using the VS Code integrated terminal connected to your Ubuntu VM, install k3d with the Linux installation method:
 
 ```bash
 curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
@@ -33,6 +63,13 @@ k3d version v5.x.x
 k3s version v1.28.x-k3s1 (default)
 ```
 
+**Verify Docker is accessible (since k3d requires Docker):**
+```bash
+docker ps
+```
+
+This should list running containers without any permission errors.
+
 ## Create Your First k3d Cluster
 
 1. **Check existing clusters:**
@@ -40,7 +77,7 @@ k3s version v1.28.x-k3s1 (default)
    k3d cluster list
    ```
 
-2. **Create a cluster with 1 server and 2 agents:**
+2. **Create a cluster with 1 server and 2 agents (takes 1-3 minutes):**
    ```bash
    k3d cluster create demo --servers 1 --agents 2 --api-port 6550 --wait
    ```
@@ -80,6 +117,18 @@ CoreDNS is running at https://0.0.0.0:6550/api/v1/namespaces/kube-system/service
 Metrics-server is running at https://0.0.0.0:6550/api/v1/namespaces/kube-system/services/https:metrics-server:/proxy
 ```
 
+**Verify kubectl context is set correctly:**
+```bash
+kubectl config current-context
+```
+This should show: `k3d-demo`
+
+**Verify all nodes are ready:**
+```bash
+kubectl get nodes
+```
+You should see 3 nodes (1 server + 2 agents) with STATUS "Ready"
+
 ## Verify Cluster is Working
 
 Run additional verification commands:
@@ -94,6 +143,26 @@ kubectl get pods -n kube-system
 # Check cluster status
 kubectl get all --all-namespaces
 ```
+
+## End-to-End Cluster Test
+
+Test that the cluster can actually run workloads:
+
+```bash
+# Deploy a test pod
+kubectl create deployment test-nginx --image=nginx:latest
+
+# Wait for pod to be ready
+kubectl wait --for=condition=ready pod -l app=test-nginx --timeout=60s
+
+# Verify deployment is working
+kubectl get pods -l app=test-nginx
+
+# Clean up test deployment
+kubectl delete deployment test-nginx
+```
+
+If all commands succeed, your cluster is working correctly!
 
 ## Troubleshooting
 
@@ -123,6 +192,17 @@ When you're done with the cluster:
 ```bash
 k3d cluster delete demo
 ```
+
+**Verify cleanup was successful:**
+```bash
+# Should show no 'demo' cluster
+k3d cluster list
+
+# Should show no k3d-demo containers
+docker ps -a | grep k3d-demo
+```
+
+If the second command returns no results, cleanup was successful.
 
 ## Summary
 

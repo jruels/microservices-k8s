@@ -9,7 +9,7 @@ In this lab, you will work with a multi-service application using Skaffold for m
 - Completed Lab 09: Remote Development with Telepresence on EKS
 
 ## Environment Setup
-Ensure you're connected to your Ubuntu VM through VS Code Remote Development. All commands will be executed on the Ubuntu VM.
+Ensure you're connected to your Ubuntu VM through VS Code Remote Explorer extension (see Lab 01 for SSH setup). All commands will be executed in the VS Code integrated terminal connected to your Ubuntu VM. Use VS Code's file explorer to navigate and manage directories and files.
 
 ## Create k3d Cluster
 
@@ -23,6 +23,12 @@ k3d cluster create microservices --api-port 6559 --servers 1 --agents 2 --port "
 
 Clone the official Skaffold microservices example:
 
+**Option 1: Using VS Code File Explorer + Terminal**
+- In VS Code's file explorer, navigate to `/home/ubuntu/k3d` (create `k3d` folder if it doesn't exist)
+- Right-click and create a new folder called `microservices`
+- Navigate to this directory in the terminal, then run the git commands
+
+**Option 2: Using Terminal**
 ```bash
 mkdir -p ~/k3d/microservices
 cd ~/k3d/microservices
@@ -32,8 +38,10 @@ cd skaffold/examples/microservices
 
 ## Explore the Application Architecture
 
-Examine the application structure:
+Examine the application structure using VS Code file explorer or terminal:
 
+**Using VS Code**: Navigate through the folders in the file explorer to see the structure
+**Using Terminal**:
 ```bash
 ls -la
 ```
@@ -46,8 +54,10 @@ You should see:
 
 ## Examine the Skaffold Configuration
 
-Look at the main Skaffold configuration:
+Look at the main Skaffold configuration using VS Code or terminal:
 
+**Using VS Code**: Double-click `skaffold.yaml` in the file explorer to open it
+**Using Terminal**:
 ```bash
 cat skaffold.yaml
 ```
@@ -60,16 +70,20 @@ This shows:
 
 ## Examine the Services
 
-Look at the backend service:
+Look at the backend service using VS Code file explorer or terminal:
 
+**Using VS Code**: Navigate to `leeroy-app/` folder and open the files
+**Using Terminal**:
 ```bash
 cat leeroy-app/app.go
 cat leeroy-app/Dockerfile
 cat leeroy-app/kubernetes/deployment.yaml
 ```
 
-Look at the frontend service:
+Look at the frontend service using VS Code file explorer or terminal:
 
+**Using VS Code**: Navigate to `leeroy-web/` folder and open the files
+**Using Terminal**:
 ```bash
 cat leeroy-web/app.py
 cat leeroy-web/Dockerfile

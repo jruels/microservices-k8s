@@ -9,7 +9,7 @@ In this lab, you will learn how to work with persistent volumes in k3d clusters 
 - Completed Lab 01: K3d Getting Started
 
 ## Environment Setup
-Ensure you're connected to your Ubuntu VM through VS Code Remote Development. All commands will be executed on the Ubuntu VM.
+Ensure you're connected to your Ubuntu VM through VS Code Remote Explorer extension (see Lab 01 for SSH setup). All commands will be executed in the VS Code integrated terminal connected to your Ubuntu VM. Use VS Code's file explorer to navigate and manage directories.
 
 ## Create Local Directory for Persistent Volume
 
@@ -24,8 +24,10 @@ mkdir -p /tmp/k3dvol
 Create the cluster with a volume mount to enable persistent storage:
 
 ```bash
-k3d cluster create "k3d-pvc" --volume /tmp/k3dvol:/tmp/k3dvol --port "80:80@loadbalancer" --agents 2 --api-port 6551 --wait
+k3d cluster create "k3d-pvc" --volume /tmp/k3dvol:/tmp/k3dvol@server:0 --port "80:80@loadbalancer" --agents 2 --api-port 6551 --wait
 ```
+
+**Note**: The `@server:0` specification ensures the volume is mounted on the server node where persistent volumes can be properly accessed.
 
 You should see output similar to:
 ```
@@ -49,7 +51,9 @@ kubectl cluster-info
 
 ## Create Application with Persistent Volume
 
-Create a YAML file for deploying an application with persistent storage:
+Create a YAML file for deploying an application with persistent storage. You can either:
+- Use VS Code to create a new file called `app.yaml` in the file explorer, or
+- Use the terminal command below:
 
 ```bash
 cat > app.yaml << 'EOF'
@@ -65,6 +69,14 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - k3d-k3d-pvc-server-0
   hostPath:
     path: "/tmp/k3dvol"
 ---
@@ -105,7 +117,7 @@ spec:
         volumeMounts:
         - mountPath: "/data"
           name: task-pv-storage
-        command: ["ping", "127.0.0.1"]
+        command: ["sleep", "3600"]
 EOF
 ```
 
@@ -126,23 +138,28 @@ deployment.apps/echo created
 
 ## Verify Persistent Volume Setup
 
-Check the persistent volume:
+Check the persistent volume and ensure it's bound:
 
 ```bash
 kubectl get pv
 ```
+**Expected output**: STATUS should show "Bound"
 
-Check the persistent volume claim:
+Check the persistent volume claim and ensure it's bound:
 
 ```bash
 kubectl get pvc
 ```
+**Expected output**: STATUS should show "Bound"
 
-Check the pod:
+Check the pod and ensure it's running:
 
 ```bash
 kubectl get pods
 ```
+**Expected output**: STATUS should show "Running"
+
+**If PV/PVC are not bound, check troubleshooting section below.**
 
 ## Test Persistent Storage
 

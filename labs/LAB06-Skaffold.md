@@ -9,7 +9,7 @@ In this lab, you will learn how to use Skaffold to optimize the development work
 - Completed Lab 01: K3d Getting Started
 
 ## Environment Setup
-Ensure you're connected to your Ubuntu VM through VS Code Remote Development. All commands will be executed on the Ubuntu VM.
+Ensure you're connected to your Ubuntu VM through VS Code Remote Explorer extension (see Lab 01 for SSH setup). All commands will be executed in the VS Code integrated terminal connected to your Ubuntu VM. Use VS Code's file explorer to navigate and manage directories and files.
 
 ## Install Skaffold
 
@@ -36,6 +36,14 @@ k3d cluster create skaffold --api-port 6555 --agents 2 --wait
 
 ## Create Working Directory
 
+Create the working directory using VS Code file explorer or terminal:
+
+**Option 1: Using VS Code File Explorer**
+- In VS Code's file explorer, navigate to `/home/ubuntu/k3d` (create `k3d` folder if it doesn't exist)
+- Right-click and create a new folder called `skaffold`
+- Navigate to this directory in the terminal
+
+**Option 2: Using Terminal**
 ```bash
 mkdir -p ~/k3d/skaffold
 cd ~/k3d/skaffold
@@ -61,7 +69,9 @@ cat src/main/java/hello/Application.java
 
 ## Create Dockerfile
 
-Create a Dockerfile for the Spring Boot application:
+Create a Dockerfile for the Spring Boot application. You can either:
+- **Use VS Code**: Create a new file called `Dockerfile` in VS Code editor and add the contents below
+- **Use terminal**: Run the command below to create the file
 
 ```bash
 cat > Dockerfile << 'EOF'

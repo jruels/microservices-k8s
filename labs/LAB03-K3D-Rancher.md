@@ -9,7 +9,7 @@ In this lab, you will learn how to work with k3d clusters and install Rancher us
 - Completed Lab 01: K3d Getting Started
 
 ## Environment Setup
-Ensure you're connected to your Ubuntu VM through VS Code Remote Development. All commands will be executed on the Ubuntu VM.
+Ensure you're connected to your Ubuntu VM through VS Code Remote Explorer extension (see Lab 01 for SSH setup). All commands will be executed in the VS Code integrated terminal connected to your Ubuntu VM. Use VS Code's file explorer to navigate and manage directories.
 
 ## Install Helm
 
@@ -66,7 +66,7 @@ helm repo add jetstack https://charts.jetstack.io
 # Update your local Helm chart repository cache
 helm repo update
 
-# Install the cert-manager Helm chart
+# Install the cert-manager Helm chart (this takes 1-2 minutes)
 helm install cert-manager jetstack/cert-manager \
   --namespace cert-manager \
   --create-namespace \
@@ -82,6 +82,19 @@ kubectl get pods --namespace cert-manager
 
 Wait for all cert-manager pods to be Running before proceeding.
 
+**Expected**: You should see 3 pods (cert-manager, cert-manager-cainjector, cert-manager-webhook) all with STATUS "Running"
+
+**Verify cert-manager CRDs are installed:**
+```bash
+kubectl get crd | grep cert-manager
+```
+**Expected**: You should see several cert-manager related CRDs listed
+
+**Wait for cert-manager to be fully ready:**
+```bash
+kubectl wait --for=condition=ready pod -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=300s
+```
+
 ## Install Rancher
 
 Add the Rancher Helm repository:
@@ -91,7 +104,7 @@ helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
 helm repo update
 ```
 
-Install Rancher:
+Install Rancher (this takes 3-5 minutes):
 
 ```bash
 helm install rancher rancher-latest/rancher \
@@ -103,6 +116,8 @@ helm install rancher rancher-latest/rancher \
   --set replicas=1
 ```
 
+**Note**: Using `bootstrapPassword=admin` is for lab purposes only. In production, use a strong password.
+
 ## Verify Rancher Installation
 
 Check the Rancher deployment:
@@ -113,6 +128,17 @@ kubectl -n cattle-system get pods
 
 Wait for all Rancher pods to be Running. This may take a few minutes.
 
+**Wait for Rancher to be fully ready:**
+```bash
+kubectl wait --for=condition=ready pod -l app=rancher -n cattle-system --timeout=600s
+```
+
+**Verify Rancher service is available:**
+```bash
+kubectl -n cattle-system get svc rancher
+```
+**Expected**: Should show a service with ports 80 and 443
+
 ## Access Rancher UI
 
 1. **Get your Ubuntu VM IP address:**
@@ -120,14 +146,20 @@ Wait for all Rancher pods to be Running. This may take a few minutes.
    hostname -I | awk '{print $1}'
    ```
 
-2. **Create a tunnel to access from Windows VM:**
+2. **Check the Rancher service ports:**
    ```bash
-   kubectl -n cattle-system port-forward service/rancher 8080:80 --address=0.0.0.0
+   kubectl -n cattle-system get svc rancher
    ```
 
-3. **Access Rancher UI:**
+3. **Create a tunnel to access from Windows VM:**
+   ```bash
+   kubectl -n cattle-system port-forward service/rancher 8443:443 --address=0.0.0.0
+   ```
+
+4. **Access Rancher UI:**
    - Open your web browser on the Windows VM
-   - Navigate to: `http://[UBUNTU_VM_IP]:8080`
+   - Navigate to: `https://[UBUNTU_VM_IP]:8443`
+   - Accept the self-signed certificate warning
    - Use the bootstrap password: `admin`
 
 ## Troubleshooting
@@ -156,13 +188,16 @@ kubectl get pods -n cert-manager
 **If you can't access the UI:**
 ```bash
 # Verify port forward is working
-netstat -tlnp | grep 8080
+netstat -tlnp | grep 8443
 
 # Check Ubuntu VM firewall
 sudo ufw status
 
 # If firewall is active, allow the port
-sudo ufw allow 8080
+sudo ufw allow 8443
+
+# Verify Rancher service is running
+kubectl -n cattle-system get pods -l app=rancher
 ```
 
 ## Explore Rancher Features
