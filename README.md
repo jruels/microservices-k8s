@@ -15,23 +15,21 @@ Students will edit files via VS Code on Windows while executing commands on the 
 
 02. **K3d and Persistent Volumes** - [LAB02-K3D-PVC.md](labs/LAB02-K3D-PVC.md)
 
-03. **K3d, Helm and Rancher** - [LAB03-K3D-Rancher.md](labs/LAB03-K3D-Rancher.md)
+03. **Building a Helm Chart** - [LAB04-Helm-Chart-Build.md](labs/LAB04-Helm-Chart-Build-new.md)
 
-04. **Building a Helm Chart** - [LAB04-Helm-Chart-Build.md](labs/LAB04-Helm-Chart-Build.md)
-
-05. **Working with Operator SDK** - [LAB05-OperatorSDK-Helm.md](labs/LAB05-OperatorSDK-Helm.md)
+04. **Working with Operator SDK** - [LAB05-OperatorSDK-Helm.md](labs/LAB05-OperatorSDK-Helm.md)
 
 ## Day 2 - Advanced Development & Cloud Integration
 
-06. **Skaffold and k3d** - [LAB06-Skaffold.md](labs/LAB06-Skaffold.md)
+05. **Skaffold and k3d** - [LAB06-Skaffold.md](labs/LAB06-Skaffold.md)
 
-07. **Prometheus Monitoring** - [LAB07-Prometheus.md](labs/LAB07-Prometheus.md)
+06. **Prometheus Monitoring** - [LAB07-Prometheus.md](labs/LAB07-Prometheus.md)
 
-08. **Tilt and k3d** - [LAB08-Tilt.md](labs/LAB08-Tilt.md)
+07. **Tilt and k3d** - [LAB08-Tilt.md](labs/LAB08-Tilt.md)
 
-09. **Remote Development with Telepresence on EKS** - [LAB09-Telepresence.md](labs/LAB09-Telepresence.md)
+08. **Remote Development with Telepresence on EKS** - [LAB09-Telepresence.md](labs/LAB09-Telepresence.md)
 
-10. **Skaffold Microservices** - [LAB10-Skaffold-Microservices.md](labs/LAB10-Skaffold-Microservices.md)
+09. **Skaffold Microservices** - [LAB10-Skaffold-Microservices.md](labs/LAB10-Skaffold-Microservices.md)
 
 ---
 
