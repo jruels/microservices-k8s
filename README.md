@@ -1,15 +1,20 @@
 # DevOps for Microservices with Kubernetes
-*2-Day Intensive Course*
+This page contains the labs for the Developing microservices on Kubernetes class.
 
 ## Environment Setup
+[Windows VM info](VM_access.md)   
+
 This course uses a dual-VM setup:
 - **Windows VM**: VS Code with Remote Development extension, AWS CLI
 - **Ubuntu VM**: Docker, k3d, kubectl, and development tools
 - **Connection**: VS Code Remote Development extension connects Windows VM to Ubuntu VM
 
-Students will edit files via VS Code on Windows while executing commands on the Ubuntu VM.
+Students will edit files via VS Code which is remotely connected to the Ubuntu VM.   
+All commands will be executuded in VS Code's terminal remotely connected to Ubuntu VM.
 
 ## Day 1 - Local k3d Development & Core Tools
+
+00. **Set up Windows VM** - [Windows VM setup](labs/setup.md)
 
 01. **K3d Getting Started** - [LAB01-K3D-GettingStarted.md](labs/LAB01-K3D-GettingStarted.md)
 
