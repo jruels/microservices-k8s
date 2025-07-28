@@ -25,7 +25,7 @@ Students will edit files via VS Code on Windows while executing commands on the 
 
 06. **Prometheus Monitoring** - [LAB07-Prometheus.md](labs/LAB07-Prometheus.md)
 
-07. **Tilt and k3d** - [LAB08-Tilt.md](labs/LAB08-Tilt.md)
+07. **Tilt and k3d** - [LAB08-Tilt.md](labs/Tilt.md)
 
 08. **Remote Development with Telepresence on EKS** - [LAB09-Telepresence.md](labs/LAB09-Telepresence.md)
 
