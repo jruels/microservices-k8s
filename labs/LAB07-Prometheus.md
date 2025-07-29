@@ -89,10 +89,18 @@ Wait for all pods to be in Running state before proceeding.
 Port forward to access the Prometheus dashboard:
 
 ```bash
-kubectl port-forward -n monitor svc/prometheus-operator-kube-prometheus-prometheus 9090:9090
+kubectl port-forward -n monitor svc/prometheus-operator-kube-p-prometheus 9090:9090
 ```
 
-Open your browser and navigate to http://127.0.0.1:9090 to access the Prometheus dashboard.
+**Open a new terminal in VS Code** (Terminal → New Terminal) and test the connection:
+
+```bash
+curl http://localhost:9090
+```
+
+You should see HTML content returned, indicating Prometheus is accessible. Then open your browser and navigate to http://127.0.0.1:9090 to access the Prometheus dashboard.
+
+**Note:** Opening a new terminal ensures the port-forward connection is properly established and accessible from other processes.
 
 ## Explore Prometheus Metrics
 
@@ -257,7 +265,14 @@ kubectl apply -f service-monitor.yaml
 
 ## Set Up Alerts
 
-Create a simple alert rule:
+Create a simple alert rule. First, let's check the actual memory usage of our sample app to set a realistic threshold:
+
+In Prometheus UI (http://127.0.0.1:9090/graph), run this query to see current memory usage:
+```
+container_memory_usage_bytes{pod=~"sample-app.*"}
+```
+
+Based on typical nginx memory usage (around 4-5MB), create an alert rule:
 
 ```bash
 cat > alert-rule.yaml << 'EOF'
@@ -266,13 +281,15 @@ kind: PrometheusRule
 metadata:
   name: sample-app-alerts
   namespace: monitor
+  labels:
+    release: prometheus-operator
 spec:
   groups:
   - name: sample-app.rules
     rules:
     - alert: HighMemoryUsage
-      expr: container_memory_usage_bytes{pod=~"sample-app.*"} > 100000000
-      for: 5m
+      expr: container_memory_usage_bytes{pod=~"sample-app.*"} > 2000000
+      for: 30s
       labels:
         severity: warning
       annotations:
@@ -280,6 +297,11 @@ spec:
         description: "Pod {{ $labels.pod }} is using {{ $value }} bytes of memory"
 EOF
 ```
+
+**Important notes about this alert rule:**
+- **`release: prometheus-operator` label**: Required for the Prometheus operator to discover this rule
+- **Threshold of 2MB (2,000,000 bytes)**: Set below typical nginx usage to ensure the alert triggers
+- **30 second evaluation period**: Shorter time for lab demonstration purposes
 
 Apply the alert rule:
 
@@ -291,7 +313,17 @@ kubectl apply -f alert-rule.yaml
 
 Check alerts in Prometheus:
 1. Go to http://127.0.0.1:9090/alerts
-2. View the alert rules and their current status
+2. Wait about 1-2 minutes for the alert rule to be loaded and evaluated
+3. **Filter by State**: Use the dropdown to filter by "FIRING" to see active alerts
+4. **Look for your rule group**: You should see "sample-app.rules" in the list
+5. **Expand the alert**: Click on "HighMemoryUsage" to see details including which pods triggered the alert
+
+You should see the alert showing "FIRING (6)" or similar, indicating that 6 instances (multiple containers across your 3 replica pods) are above the 2MB threshold.
+
+**Troubleshooting if alerts don't appear:**
+- Verify the PrometheusRule has the correct label: `kubectl get prometheusrule sample-app-alerts -n monitor --show-labels`
+- Check that the query returns data in the Graph tab: `container_memory_usage_bytes{pod=~"sample-app.*"}`
+- Ensure the memory values are above 2MB (2,000,000 bytes)
 
 ## Generate Load for Testing
 
