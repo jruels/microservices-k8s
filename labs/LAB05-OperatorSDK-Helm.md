@@ -128,6 +128,11 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
 service:
   type: ClusterIP
   port: 80
@@ -150,6 +155,12 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
 
 nodeSelector: {}
 
@@ -179,10 +190,16 @@ Load the image into k3d:
 k3d image import nginx-operator:latest -c operator-demo
 ```
 
-Deploy the operator:
+Deploy the operator (using local image without pushing to registry):
 
 ```bash
-make deploy IMG=nginx-operator:latest
+make deploy IMG=nginx-operator:latest REGISTRY_PUSH=false
+```
+
+If you encounter ImagePullBackOff errors, patch the deployment to use the local image:
+
+```bash
+kubectl patch deployment operators-controller-manager -n operators-system -p '{"spec":{"template":{"spec":{"containers":[{"name":"manager","imagePullPolicy":"Never"}]}}}}'
 ```
 
 ## Verify Operator Installation
@@ -190,7 +207,7 @@ make deploy IMG=nginx-operator:latest
 Check that the operator is running:
 
 ```bash
-kubectl get pods -n nginx-operator-system
+kubectl get pods -n operators-system
 ```
 
 View the Custom Resource Definitions (CRDs):
@@ -285,7 +302,7 @@ kubectl get pods -w
 Check the operator logs:
 
 ```bash
-kubectl logs -n nginx-operator-system -l control-plane=controller-manager -f
+kubectl logs -n operators-system -l control-plane=controller-manager -f
 ```
 
 ## Create Another Instance
