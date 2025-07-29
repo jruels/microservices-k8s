@@ -31,18 +31,11 @@ unzip awscliv2.zip
 sudo ./aws/install
 ```
 
-### Install Telepresence
-```bash
-sudo curl -fL https://app.getambassador.io/download/tel2/linux/amd64/latest/telepresence -o /usr/local/bin/telepresence
-sudo chmod a+x /usr/local/bin/telepresence
-```
-
 Verify installations:
 ```bash
 eksctl version
 aws --version
 kubectl version --client
-telepresence version
 ```
 
 ## Configure AWS Credentials
