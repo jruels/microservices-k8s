@@ -6,7 +6,6 @@ In this lab, you will learn how to use Tilt for fast, multi-service development 
 - Windows VM with VS Code and Remote Development extension
 - Ubuntu VM with Docker, k3d, and kubectl installed
 - VS Code connected to Ubuntu VM via Remote Development extension
-- Completed Lab 06: Skaffold and k3d
 
 ## Environment Setup
 Ensure you're connected to your Ubuntu VM through VS Code Remote Explorer extension (see Lab 01 for SSH setup). All commands will be executed in the VS Code integrated terminal connected to your Ubuntu VM. Use VS Code's file explorer to navigate and manage directories and files.

@@ -63,7 +63,7 @@ You should see output similar to the following in your terminal:
 
 First, open the sample project directory (path is in the `tilt demo` output) in your preferred editor so that you can make changes in the following steps.
 
-Once the sample project is open, return focus to the terminal window and press `(Spacebar)`, and the Tilt UI will be opened in your default browser.
+Once the sample project is open, in a browser, go to [http://localhost:10350](http://localhost:10350) to open the Tilt UI.
 
 In the next section, we’ll explain the Tilt UI. But first, let’s dissect what’s happening in the background.
 
@@ -79,7 +79,7 @@ Because your `Tiltfile` is a program, you can configure it with familiar constru
 
 When Tilt executes the `Tiltfile`:
 
-1. Built-in functions like [`k8s_yaml`](https://docs.tilt.dev/api#api.k8s_yaml) and [`docker_build`](https://docs.tilt.dev/api#api.docker_build) register information with the Tilt engine
+1. Built-in functions like [`k8s_yaml`](https://docs.tilt.dev/api.html#api.k8s_yaml) and [`docker_build`](https://docs.tilt.dev/api.html#api.docker_build) register information with the Tilt engine
 2. Tilt uses the resulting configuration to assemble resources to build and deploy
 3. Tilt watches **relevant** source code files so it can trigger an update of the associated resource(s)
 
@@ -87,7 +87,7 @@ Within Tilt, the `Tiltfile` is itself a resource, so **you can even modify your 
 
 ![Sample Tiltfile code](https://docs.tilt.dev/assets/docimg/tutorial/tiltfile.png)
 
-You can skip container re-builds and Pod re-deployments entirely via [Smart Rebuilds with Live Update](https://docs.tilt.dev/tutorial/5-live-update).
+You can skip container rebuilds and Pod re-deployments entirely via Smart Rebuilds with Live Update.
 
 Open the [`tilt-avatars` Tiltfile](https://github.com/tilt-dev/tilt-avatars/blob/main/Tiltfile) and read through it. 
 
@@ -99,9 +99,9 @@ A “resource” is a bundle of work managed by Tilt. For example: a Docker imag
 
 > **Resources don’t have to be containers!**
 >
-> Tilt can also [manage locally-executed commands](https://docs.tilt.dev/local_resource) to provide a unified experience no matter how your code runs.
+> Tilt can also [manage locally-executed commands](https://docs.tilt.dev/local_resource.html) to provide a unified experience no matter how your code runs.
 
-Resource bundling is **automatic** in most cases: Tilt finds the relationship between bits of work (e.g. `docker build` + `kubectl apply`). When that’s not sufficient, `Tiltfile` functions like [`k8s_resource`](https://docs.tilt.dev/api#api.k8s_resource) let you configure resources on top of what Tilt does automatically.
+Resource bundling is **automatic** in most cases: Tilt finds the relationship between bits of work (e.g. `docker build` + `kubectl apply`). When that’s not sufficient, `Tiltfile` functions like [`k8s_resource`](https://docs.tilt.dev/api.html#api.k8s_resource) let you configure resources on top of what Tilt does automatically.
 
 Because Tilt assembles multiple bits of work into a single resource, it’s much easier to determine status and find errors across update (build/deploy) and runtime.
 
@@ -133,9 +133,9 @@ More importantly, Tilt lets you know *why*.
 
 ## The Control Loop
 
-Tilt is based on the idea of a [control loop](https://docs.tilt.dev/controlloop). This gives you real-time, circular feedback: something watches, something reacts, and equilibrium is maintained.
+Tilt is based on the idea of a [control loop](https://docs.tilt.dev/controlloop.html). This gives you real-time, circular feedback: something watches, something reacts, and equilibrium is maintained.
 
-This is intentionally more “hands-free” than other dev tools. Traditional build systems like `make` are oriented around tasks that are invoked on-demand by the user. Even many service-oriented development tools like `docker-compose up` don’t *react* to changes once started. Newer tools, such as Webpack, often include hot module reload, but have limitations. (For example, changes to `webpack.config.js` require a manual restart.)
+This is intentionally more “hands-free” than other dev tools. Traditional build systems like `make` are oriented around tasks that are invoked on demand by the user. Even many service-oriented development tools like `docker-compose up` don’t *react* to changes once started. Newer tools, such as Webpack, often include hot module reload, but have limitations. (For example, changes to `webpack.config.js` require a manual restart.)
 
 ![Diagram of Tilt's control loop architecture](https://docs.tilt.dev/assets/img/controlloop/06.jpg)
 
@@ -150,10 +150,6 @@ Some examples of what Tilt handles for you:
 **So, once you’ve run `tilt up`, you can focus on your code and let Tilt continuously react to your changes without worrying if they’re the “right” type of changes.**
 
 This has other benefits: for example, when you run `tilt up`, Tilt won’t re-deploy any already running and up-to-date services.
-
-## Launching the Web UI
-
-In your terminal window running `tilt demo`, press `(Spacebar)`. Tilt will open your default browser to the Tilt UI. (Or navigate there directly in your preferred browser using the URL from the terminal.)
 
 ## Resource Overview
 
@@ -197,7 +193,7 @@ Click on the “api” resource to navigate to the Resource Details view for the
 
 ## Resource Details
 
-The central focus of the Resource Detail view is logs, but all the information from the Resource Overview such as [custom buttons](https://docs.tilt.dev/buttons), endpoints, and pod IDs are available here as well.
+The central focus of the Resource Detail view is logs, but all the information from the Resource Overview such as custom buttons, endpoints, and pod IDs are available here as well.
 
 Try clicking the “Trigger Update” (↻) button next to the “web” resource to run a manual update, which will re-build and re-deploy the Pod: ![Triggering an update for the "web" resource in the Tilt UI Resource Detail view](https://docs.tilt.dev/assets/docimg/tutorial/tilt-ui-trigger-update.gif)
 
@@ -223,7 +219,7 @@ Tilt provides several mechanisms to focus your logs:
 
 ## What Else?
 
-You can extend the Tilt UI with [custom buttons](https://docs.tilt.dev/buttons) to run common tasks such as unit tests or lint with one-click. Buttons support parameterized inputs and the log output goes directly to the relevant resource, so you don’t have to jump back and forth between a terminal and the Tilt UI.
+You can extend the Tilt UI with custom buttons to run everyday tasks, such as unit tests or lint, with one click. Buttons support parameterized inputs, and the log output goes directly to the relevant resource, so you don’t have to jump back and forth between a terminal and the Tilt UI.
 
 Otherwise, the Tilt UI is designed to be unobtrusive and run in the background, notifying you only when something needs your attention.
 
@@ -231,17 +227,18 @@ Multi-service development might be complex, but we aim for simplicity in the Til
 
 ## Update Code
 
-Tilt embraces the concept of a [control loop](https://docs.tilt.dev/tutorial/2-tilt-up#the-control-loop), so once you’ve run `tilt up`, it’s a “hands free” development experience.
+Tilt embraces the concept of a control loop, so once you’ve run `tilt up`, it’s a “hands-free” development experience.
 
 As you edit your code, Tilt will automatically run update steps such as building an updated container image and deploying it.
 
-Let’s test it out:
+### Update log level:
 
 1. Navigate to the “web” resource in the Tilt UI and click “Clear Logs”
-2. Open `web/vite.config.js` in your favorite editor
-3. Find the `logLevel` line and change it from `'error'` to `'info'`
-4. Save the file
-5. Watch magic happen for the `web` resource in the Tilt UI
+2. Open `/tmp/tilt-demo-<number>` in VS Code remote explorer
+3. Open `web/vite.config.js` 
+4. Find the `logLevel` line and change it from `'warn'` to `'info'`
+5. Save the file
+6. Watch magic happen for the `web` resource in the Tilt UI
 
 ![Tilt updating a resource after a code change](https://docs.tilt.dev/assets/docimg/tutorial/tilt-code-change-full-rebuild.gif)
 
@@ -284,7 +281,14 @@ docker_build(
     dockerfile='./deploy/web.dockerfile',
     only=['./web/'],
     ignore=['./web/dist/'],
-    live_update=[...]  # omitted for brevity
+    live_update=[
+        fall_back_on('./web/vite.config.js'),
+        sync('./web/', '/app/'),
+        run(
+            'yarn install',
+            trigger=['./web/package.json', './web/yarn.lock']
+        )
+    ]
 )
 ```
 
@@ -381,7 +385,7 @@ Pre-bundling dependencies:
   ready in 946ms.
 ```
 
-If you’re a bit underwhelmed by changing a log level, we do much more soon! The [Tilt Avatars](https://github.com/tilt-dev/tilt-avatars) project is configured to use Live Update for regular development, so we purposefully made a change in a config file that meant the full container would be rebuilt.
+If you’re a bit underwhelmed by changing a log level, we do more soon. The [Tilt Avatars](https://github.com/tilt-dev/tilt-avatars) project is configured to use Live Update for regular development, so we purposefully made a change in a config file that meant the full container would be rebuilt.
 
 Let’s move on to the next section, where we’ll make more interesting code changes with Live Update.
 
@@ -389,7 +393,7 @@ Let’s move on to the next section, where we’ll make more interesting code ch
 
 # Smart Rebuilds with Live Update
 
-Tilt’s deep understanding of your resources means the right things get rebuilt at the right times.
+Tilt’s deep understanding of your resources means the right things get rebuilt at the correct times.
 
 Even with Docker layer caching, rebuilding a container image can be slow. For unoptimized Kubernetes-based development, every code change requires:
 
@@ -402,7 +406,7 @@ Live Update solves these challenges by performing an **in-place update of the co
 
 It works with frameworks that natively support hot reload (e.g., Webpack) and compiled languages.
 
-Time to try it out:
+## Update code:
 
 1. Open `api/app.py` in your favorite editor
 2. Find the commented-out line `# 'other': ['accessory']`
@@ -410,7 +414,8 @@ Time to try it out:
 4. Save the file
 5. Watch magic happen for the `api` resource in the Tilt UI
 6. Open the Tilt Avatars web app http://localhost:5735/
-7. Dress the character with some stylish glasses (this is important!!! 😎)
+7. If you can't access the site, open `ports` in VS Code, and add a new port forward for `5735`
+8. Dress the character with some stylish glasses
 
 ![Tilt Live Updating a container after a code change](https://docs.tilt.dev/assets/docimg/tutorial/tilt-code-change-live-update.gif)
 
@@ -456,7 +461,7 @@ Will copy 1 file(s) to container: 4a9aac5527
   → Container 4a9aac5527 updated!
 ```
 
-Since Flask (Python web framework) provides a dev server with hot module support, copying the file is all that was needed! Live Update also supports situations where the framework does not support reloading code at runtime by restarting your process with an updated version of the code in the container, which saves the overhead of image build and deployment. For details, refer to the full [Live Update Reference](https://docs.tilt.dev/live_update_reference#restarting-your-process).
+Since Flask (Python web framework) provides a dev server with hot module support, copying the file is all that was needed! Live Update also supports situations where the framework does not support reloading code at runtime by restarting your process with an updated version of the code in the container, which saves the overhead of image build and deployment. For details, refer to the full [Live Update Reference](https://docs.tilt.dev/live_update_reference.html#restarting-your-process).
 
 ## `run()`
 
@@ -485,19 +490,24 @@ Will copy 1 file(s) to container: 4a9aac5527
   → Container 4a9aac5527 updated!
 ```
 
-## 
+
+
+## Congrats
+
+You’ve completed the Tilt lab and learned how to automate and streamline local Kubernetes development. Here’s what you accomplished:
+
+
+
+- Installed Tilt and created a local Kubernetes cluster using k3d
+- Launched the Tilt Avatars demo project with `tilt demo`
+- Explored the Tilt UI to monitor resources, logs, and update status
+- Modified the Tiltfile to understand resource definitions and build logic
+- Used Live Update to sync code changes instantly into running containers
+- Saw how Tilt’s control loop reacts to code, config, and dependency changes
 
 ## Clean up 
 
 In the tilt directory, run `ctrl+c` to shut things down. 
-
-
-
-Delete the k3d cluster 
-
-```bash
-k3d cluster delete tilt
-```
 
 
 

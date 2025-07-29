@@ -15,13 +15,24 @@ All commands will be executuded in VS Code's terminal remotely connected to Ubun
 
 ## Day 1 - Local k3d Development & Core Tools
 
-00. **Set up Windows VM** - [Windows VM setup](labs/setup.md)
+0. **Set up Windows VM** - [Windows VM setup](labs/setup.md)
 
-01. **K3d Getting Started** - [LAB01-K3D-GettingStarted.md](labs/LAB01-K3D-GettingStarted.md)
+1. **K3d Getting Started** - [LAB01-K3D-GettingStarted.md](labs/LAB01-K3D-GettingStarted.md)
 
-02. **K3d and Persistent Volumes** - [LAB02-K3D-PVC.md](labs/LAB02-K3D-PVC.md)
+2. **K3d and Persistent Volumes** - [LAB02-K3D-PVC.md](labs/LAB02-K3D-PVC.md)
 
-03. **Building a Helm Chart** - [LAB04-Helm-Chart-Build.md](labs/LAB04-Helm-Chart-Build-new.md)
+3. **Building a Helm Chart** - [LAB04-Helm-Chart-Build.md](labs/LAB04-Helm-Chart-Build-new.md)
 
-04. **Working with Operator SDK** - [LAB05-OperatorSDK-Helm.md](labs/LAB05-OperatorSDK-Helm.md)
+4. **Working with Operator SDK** - [LAB05-OperatorSDK-Helm.md](labs/LAB05-OperatorSDK-Helm.md)
 
+## Day 2 - Advanced Development & Cloud Integration
+
+05. **Skaffold and k3d** - [LAB06-Skaffold.md](labs/LAB06-Skaffold.md)
+
+06. **Prometheus Monitoring** - [LAB07-Prometheus.md](labs/LAB07-Prometheus.md)
+
+07. **Tilt and k3d** - [LAB08-Tilt.md](labs/Tilt.md)
+
+08. **Remote Development with Telepresence on EKS** - [LAB09-Telepresence.md](labs/LAB09-Telepresence.md)
+
+09. **Skaffold Microservices** - [LAB10-Skaffold-Microservices.md](labs/LAB10-Skaffold-Microservices.md)
