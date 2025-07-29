@@ -143,6 +143,8 @@ kubectl port-forward -n monitor svc/prometheus-operator-grafana 3000:80
 
 Open your browser and navigate to http://127.0.0.1:3000 to access Grafana.
 
+If you can't access it, check the forwarded ports in VS Code, and if it's not there, add it. 
+
 Login with the credentials from the previous step (default: admin/prom-operator).
 
 ## Explore Grafana Dashboards
