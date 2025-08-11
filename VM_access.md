@@ -1,5 +1,5 @@
-| Name | Username | Password |
-|------|----------|----------|
+| Name | Username | Password | | Ablaze URL
+|------|----------|----------|| [Ablaze URL](https://ablaze.example.com)
 | Radha Mohanty | WSAUTO25-22 | tekWSAUTO25! |
 | Nithya Bachimanchi | WSAUTO25-23 | tekWSAUTO25! |
 | Prabir Maiti | WSAUTO25-24 | tekWSAUTO25! |
