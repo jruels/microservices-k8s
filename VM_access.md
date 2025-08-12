@@ -1,6 +1,6 @@
 | Name                         | Username     | Password      | Ablaze URL                                   |
 |------------------------------|--------------|---------------|----------------------------------------------|
-| Radha Mohanty                | WSAUTO25-22  | tekWSAUTO25!  | [Ablaze Portal](https://ablaze.example.com)  |
+| Radha Mohanty                | WSAUTO25-22  | tekWSAUTO25!  | [Ablaze Portal](https://my.ablazedesktop.com)  |
 | Nithya Bachimanchi           | WSAUTO25-23  | tekWSAUTO25!  |                                              |
 | Prabir Maiti                 | WSAUTO25-24  | tekWSAUTO25!  |                                              |
 | Kiran Bangalore Ramachandra  | WSAUTO25-25  | tekWSAUTO25!  |                                              |
